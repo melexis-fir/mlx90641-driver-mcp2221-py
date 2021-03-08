@@ -20,8 +20,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
-        sudo apt update 
-        sudo apt-get install libudev-dev libusb-1.0-0-dev libhidapi-dev
+        apt update 
+        apt-get install libudev-dev libusb-1.0-0-dev libhidapi-dev
     - run: make -C mcp2221/c-code clean all -e MACHINE=armv7l -e LIB_RESULT_DIR=builded
     - uses: actions/upload-artifact@master
       with:
@@ -38,8 +38,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
-        sudo apt update 
-        sudo apt-get install libudev-dev libusb-1.0-0-dev libhidapi-dev
+        apt update 
+        apt-get install libudev-dev libusb-1.0-0-dev libhidapi-dev
     - run: make -C mcp2221/c-code clean all -e MACHINE=aarch64 -e LIB_RESULT_DIR=builded
     - uses: actions/upload-artifact@master
       with:
@@ -50,8 +50,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
-        sudo apt update 
-        sudo apt-get install libudev-dev libusb-1.0-0-dev libhidapi-dev
+        apt update 
+        apt-get install libudev-dev libusb-1.0-0-dev libhidapi-dev
     - run: make -C mcp2221/c-code clean all -e LIB_RESULT_DIR=builded
     - uses: actions/upload-artifact@master
       with:

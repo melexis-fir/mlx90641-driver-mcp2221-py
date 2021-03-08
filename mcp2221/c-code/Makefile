@@ -6,6 +6,8 @@ else
     detected_OS := $(shell sh -c 'uname 2>/dev/null || echo Unknown')
 endif
 
+CC=gcc
+AR=ar
 
 DEP_LIBS:=
 SHARED_LIB_NAME:=mlx90641_driver_mcp2221
@@ -13,6 +15,8 @@ STATIC_LIB_NAME:=mlx90641_driver_mcp2221_static
 
 STATIC_LIB_FILE:=lib$(STATIC_LIB_NAME).a
 SHARED_LIB_FILE:=lib$(SHARED_LIB_NAME).so
+
+LIB_RESULT_DIR:=../libs
 
 ifeq ($(detected_OS),Windows)
 MACHINE:=windows
@@ -26,6 +30,7 @@ DEP_LIBS+=-lhidapi-hidraw
 endif
 
 CFLAGS:=-Wall -Wextra -Wstrict-prototypes -Wunused-result -O3 -std=c99 -fmessage-length=0 -fPIC -I../libs -Iinc
+CFLAGS+=$(CFLAGS_EXTRA)
 
 
 all: $(SHARED_LIB_FILE) $(STATIC_LIB_FILE)
@@ -33,28 +38,29 @@ all: $(SHARED_LIB_FILE) $(STATIC_LIB_FILE)
 clean:
 	rm -f main *.o
 	rm -f src/*.o
+	rm -f *.exe
 	rm -f $(SHARED_LIB_FILE) $(STATIC_LIB_FILE) hidapi.dll
 
 main.o: main.c
-	gcc -c -o $@ $(CFLAGS) $^
+	$(GCC) -c -o $@ $(CFLAGS) $^
 
 src/mcp2221_hidapi.o: src/mcp2221_hidapi.c
-	gcc -c -o $@ $(CFLAGS) $^
+	$(GCC) -c -o $@ $(CFLAGS) $^
 
 src/MLX90641_I2C_Driver_mcp2221.o: src/MLX90641_I2C_Driver_mcp2221.c
-	gcc -c -o $@ $(CFLAGS) $^
+	$(GCC) -c -o $@ $(CFLAGS) $^
 
 main: main.o src/MLX90641_I2C_Driver_mcp2221.o src/mcp2221_hidapi.o
-	gcc -o $@ $^ -lm -Wl,-rpath=../libs/$(MACHINE) -L../libs/$(MACHINE) $(DEP_LIBS)
-	@cp -rvf ../libs/windows/hidapi.dll .
+	$(GCC) -o $@ $^ -lm -Wl,-rpath=$(LIB_RESULT_DIR)/$(MACHINE) -L$(LIB_RESULT_DIR)/$(MACHINE) $(DEP_LIBS)
+	@cp -rvf $(LIB_RESULT_DIR)/windows/hidapi.dll .
 
 
 $(SHARED_LIB_FILE): src/MLX90641_I2C_Driver_mcp2221.o src/mcp2221_hidapi.o
-	gcc -shared -o $@ $^ -L../libs/$(MACHINE) -L. $(DEP_LIBS) -Wl,-rpath=../libs/$(MACHINE) -Wl,-rpath=.
-	@mkdir -p ../libs/$(MACHINE)
-	@cp -fv $@ ../libs/$(MACHINE)
+	$(GCC) -shared -o $@ $^ -L$(LIB_RESULT_DIR)/$(MACHINE) -L. $(DEP_LIBS) -Wl,-rpath=$(LIB_RESULT_DIR)/$(MACHINE) -Wl,-rpath=.
+	@mkdir -p $(LIB_RESULT_DIR)/$(MACHINE)
+	@cp -fv $@ $(LIB_RESULT_DIR)/$(MACHINE)
 
 $(STATIC_LIB_FILE): src/MLX90641_I2C_Driver_mcp2221.o src/mcp2221_hidapi.o
-	ar rcu $@ $<
-	@mkdir -p ../libs/$(MACHINE)
-	@cp -fv $@ ../libs/$(MACHINE)
+	$(AR) rcu $@ $<
+	@mkdir -p $(LIB_RESULT_DIR)/$(MACHINE)
+	@cp -fv $@ $(LIB_RESULT_DIR)/$(MACHINE)
