@@ -12,4 +12,4 @@ __pycache__/
 public/*
 *.exe
 
-!mcp2221/libs/aarch64/*
+!mcp2221/libs/**/*
