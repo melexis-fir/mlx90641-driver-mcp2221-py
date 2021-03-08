@@ -43,6 +43,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - run: |
+        sudo apt update 
+        sudo apt-get install libudev-dev libusb-1.0-0-dev libhidapi-dev
     - run: make -C mcp2221/c-code clean all -e LIB_RESULT_DIR=builded
     - uses: actions/upload-artifact@master
       with:
@@ -57,6 +60,7 @@ jobs:
       image: mmozeiko/mingw-w64:latest
     steps:
     - uses: actions/checkout@v2
+    - run: find -type f
     - run: make -C mcp2221/c-code clean all -e LIB_RESULT_DIR=builded detected_OS=Windows
     - uses: actions/upload-artifact@master
       with:
