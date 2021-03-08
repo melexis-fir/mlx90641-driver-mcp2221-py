@@ -25,7 +25,6 @@ DEP_LIBS+=-lhidapi
 else
 MACHINE:=$(shell uname -m)
 DEP_LIBS+=-ludev
-DEP_LIBS+=-lusb-1.0
 DEP_LIBS+=-lhidapi-hidraw
 endif
 

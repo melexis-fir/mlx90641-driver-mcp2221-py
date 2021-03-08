@@ -11,3 +11,5 @@ __pycache__/
 *.so
 public/*
 *.exe
+
+!mcp2221/libs/aarch64/*
