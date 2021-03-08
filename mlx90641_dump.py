@@ -1,4 +1,5 @@
-from mlx90641_driver_mcp2221 import *
+from mlx90641_mcp2221 import *
+from mlx90641 import *
 
 
 def main():

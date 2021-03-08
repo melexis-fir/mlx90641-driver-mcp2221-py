@@ -16,7 +16,7 @@ int main(void)
   MLX90641_I2CInit_mcp2221("mcp://mcp:2221/0");
 
   uint16_t data[832];
-  MLX90641_I2CRead_mcp2221(0x33, 0x2400, 832, data);
+  MLX90641_I2CRead_mcp2221(MLX_I2C_ADDR, 0x2400, 832, data);
   for (int i = 0; i < 832; i+=16)
   {
     printf ("0x%04X:", 0x2400+i);
@@ -32,12 +32,12 @@ int main(void)
   int value;
   value = (refresh_rate & 0x07)<<7;
     
-  MLX90641_I2CRead_mcp2221(0x33, 0x800D, 1, &control_register1);
+  MLX90641_I2CRead_mcp2221(MLX_I2C_ADDR, 0x800D, 1, &control_register1);
   printf ("original refresh_rate: %d\n", (control_register1 >> 7) & 0x07);
   value = (control_register1 & 0xFC7F) | value;
-  MLX90641_I2CWrite_mcp2221(0x33, 0x800D, value);
+  MLX90641_I2CWrite_mcp2221(MLX_I2C_ADDR, 0x800D, value);
 
-  MLX90641_I2CRead_mcp2221(0x33, 0x800D, 1, &control_register1);
+  MLX90641_I2CRead_mcp2221(MLX_I2C_ADDR, 0x800D, 1, &control_register1);
   printf ("new refresh_rate: %d\n", (control_register1 >> 7) & 0x07);
 
   return 0;
