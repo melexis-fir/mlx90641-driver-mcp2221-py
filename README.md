@@ -1,6 +1,6 @@
 # MLX90641 driver for MCP2221 USB I2C hub
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/melexis-fir/mlx90641-driver-mcp2221-py?label=github-latest-release-tag)](https://github.com/melexis-fir/mlx90641-driver-mcp2221-py/releases) [![GitHub Workflow Status](https://github.com/melexis-fir/mlx90641-driver-mcp2221-py/workflows/build-test-publish/badge.svg)](https://github.com/melexis-fir/mlx90641-driver-mcp2221-py/actions?query=event%3Arelease) ![Lines of code](https://img.shields.io/tokei/lines/github/melexis-fir/mlx90641-driver-mcp2221-py)  
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/melexis-fir/mlx90641-driver-mcp2221-py?label=github-latest-release-tag)](https://github.com/melexis-fir/mlx90641-driver-mcp2221-py/releases) ![Lines of code](https://img.shields.io/tokei/lines/github/melexis-fir/mlx90641-driver-mcp2221-py)  
 
 [![PyPI](https://img.shields.io/pypi/v/mlx90641-driver-mcp2221)](https://pypi.org/project/mlx90641-driver-mcp2221) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/mlx90641-driver-mcp2221) ![PyPI - License](https://img.shields.io/pypi/l/mlx90641-driver-mcp2221)  
 
@@ -59,13 +59,13 @@ Make sure to (re-)plug the MCP2221 after this file is written!
 * Open a terminal and run following command:  
 
 ```bash
-mlx90641-dump-mcp2221 mcp://mcp:2221/0
+mlx90641-mcp2221-dump mcp://mcp:2221/0
 ```
 
 This program takes 1 optional argument.
 
 ```bash
-mlx90641-dump-mcp2221 <communication-port>
+mlx90641-mcp2221-dump <communication-port>
 ```
 
 Note: this dump command is not yet available!

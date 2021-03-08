@@ -9,6 +9,7 @@ dev = None
 
 @pytest.mark.run(order=order+0)
 def test_version():
+    print ('mlx90641-driver version: {}'.format(mlx90641.__version__))
     print ('mlx90641-driver-mcp2221 version: {}'.format(mlx90641_mcp2221.__version__))
 
 

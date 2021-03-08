@@ -23,6 +23,6 @@ setup(
     name="mlx90641-driver-mcp2221",
     version=get_version('mcp2221/__init__.py'),
     install_requires=[
-        'mlx90641-driver>=1.1.0'
+        'mlx90641-driver>=1.1.3'
     ]
 )
