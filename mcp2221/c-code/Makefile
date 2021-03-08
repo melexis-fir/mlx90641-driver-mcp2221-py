@@ -52,13 +52,12 @@ src/MLX90641_I2C_Driver_mcp2221.o: src/MLX90641_I2C_Driver_mcp2221.c
 
 main: main.o src/MLX90641_I2C_Driver_mcp2221.o src/mcp2221_hidapi.o
 	$(CC) -o $@ $^ -lm -Wl,-rpath=$(LIB_RESULT_DIR)/$(MACHINE) -L$(LIB_RESULT_DIR)/$(MACHINE) $(DEP_LIBS)
-	@cp -rvf $(LIB_RESULT_DIR)/windows/hidapi.dll .
+	@cp -rvf ../libs/windows/hidapi.dll .
 
 
 $(SHARED_LIB_FILE): src/MLX90641_I2C_Driver_mcp2221.o src/mcp2221_hidapi.o
-	$(CC) -shared -o $@ $^ -L$(LIB_RESULT_DIR)/$(MACHINE) -L. $(DEP_LIBS) -Wl,-rpath=$(LIB_RESULT_DIR)/$(MACHINE) -Wl,-rpath=.
+	$(CC) -shared -o $@ $^ -L../libs/$(MACHINE) $(DEP_LIBS) -Wl,-rpath=../libs/$(MACHINE)
 	@mkdir -p $(LIB_RESULT_DIR)/$(MACHINE)
-	find .. -type f
 	@cp -fv $@ $(LIB_RESULT_DIR)/$(MACHINE)
 
 $(STATIC_LIB_FILE): src/MLX90641_I2C_Driver_mcp2221.o src/mcp2221_hidapi.o
