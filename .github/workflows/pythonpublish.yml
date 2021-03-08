@@ -19,6 +19,9 @@ jobs:
       CFLAGS_EXTRA: '-D_BSD_SOURCE'
     steps:
     - uses: actions/checkout@v2
+    - run: |
+        sudo apt update 
+        sudo apt-get install libudev-dev libusb-1.0-0-dev libhidapi-dev
     - run: make -C mcp2221/c-code clean all -e MACHINE=armv7l -e LIB_RESULT_DIR=builded
     - uses: actions/upload-artifact@master
       with:
@@ -34,6 +37,9 @@ jobs:
       CFLAGS_EXTRA: '-D_BSD_SOURCE'
     steps:
     - uses: actions/checkout@v2
+    - run: |
+        sudo apt update 
+        sudo apt-get install libudev-dev libusb-1.0-0-dev libhidapi-dev
     - run: make -C mcp2221/c-code clean all -e MACHINE=aarch64 -e LIB_RESULT_DIR=builded
     - uses: actions/upload-artifact@master
       with:
@@ -61,6 +67,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: find -type f
+    - run: cp -vf mcp2221/libs/windows/hidapi.dll mcp2221/c-code
     - run: make -C mcp2221/c-code clean all -e LIB_RESULT_DIR=builded detected_OS=Windows
     - uses: actions/upload-artifact@master
       with:
