@@ -50,7 +50,7 @@ main: main.o src/MLX90641_I2C_Driver_mcp2221.o src/mcp2221_hidapi.o
 
 
 $(SHARED_LIB_FILE): src/MLX90641_I2C_Driver_mcp2221.o src/mcp2221_hidapi.o
-	gcc -shared -o $@ $^ -L../libs/$(MACHINE) $(DEP_LIBS) -Wl,-rpath=../libs/$(MACHINE)
+	gcc -shared -o $@ $^ -L../libs/$(MACHINE) -L. $(DEP_LIBS) -Wl,-rpath=../libs/$(MACHINE) -Wl,-rpath=.
 	@mkdir -p ../libs/$(MACHINE)
 	@cp -fv $@ ../libs/$(MACHINE)
 
