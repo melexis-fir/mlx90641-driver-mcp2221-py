@@ -38,11 +38,11 @@ def test_i2c_init(metadata):
 def test_refresh_rate_setting():
     global dev
 
-    assert dev.set_refresh_rate(1) == 0
-    assert dev.get_refresh_rate() == 1
-
     assert dev.set_refresh_rate(4) == 0
     assert dev.get_refresh_rate() == 4
+
+    assert dev.set_refresh_rate(1) == 0
+    assert dev.get_refresh_rate() == 1
 
 
 @pytest.mark.run(order=order+4)
